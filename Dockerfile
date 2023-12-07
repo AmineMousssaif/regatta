@@ -37,7 +37,7 @@ RUN mvn dependency:go-offline
 RUN mvn package -DskipTests
 
 # Use an official OpenJDK runtime as the final image
-FROM openjdk:20-jre-slim
+FROM openjdk:11-jre-slim
 
 # Set the working directory to /app
 WORKDIR /app
