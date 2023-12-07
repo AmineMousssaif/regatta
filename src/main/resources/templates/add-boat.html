@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head}">
+    <meta charset="UTF-8">
+    <title>Adding boat</title>
+</head>
+<body>
+<header th:replace="~{fragments/header :: header(current='add-boat')}"></header>
+<main>
+    <div class="container-lg">
+        <h2>Add boat</h2>
+
+        <div class="alert-danger" th:if="${error}!=null">
+            <span th:text="#{${error}}"></span>
+        </div>
+
+        <form action="/boat/add" method="POST" th:object="${boatDto}">
+            <p class="mb-3">
+                <label class="col-form-label" for="name">Boat name</label>
+                <input class="form-control col-sm-5" id="name" placeholder="Boat name"
+                       type="text"
+                       minlength="5"
+                       th:field="*{name}">
+            <ul th:if="${#fields.hasErrors('name')}"><li class="text-danger" th:each="error : ${#fields.errors('name')}" th:text="#{${error}}" /></ul>
+            </p>
+            <p class="mb-3">
+                <label class="col-form-label" for="email">Boat email</label>
+                <input class="form-control col-sm-5" id="email" placeholder="Boat email"
+                       type="text"
+                       minlength="5"
+                       th:field="*{email}">
+            <ul th:if="${#fields.hasErrors('email')}"><li class="text-danger" th:each="error : ${#fields.errors('email')}" th:text="#{${error}}" /></ul>
+            </p>
+            <p class="mb-3">
+                <label class="col-form-label" for="length">Boat Length</label>
+                <input class="form-control col-sm-5" id="length" placeholder="boat length"
+                       type="number"
+                       th:field="*{length}">
+            <ul th:if="${#fields.hasErrors('length')}"><li class="text-danger" th:each="error : ${#fields.errors('length')}" th:text="#{${error}}" /></ul>
+            </p>
+            <p class="mb-3">
+                <label class="col-form-label" for="height">Boat Height</label>
+                <input class="form-control col-sm-5" id="height" placeholder="boat height"
+                       type="number"
+                       th:field="*{height}">
+            <ul th:if="${#fields.hasErrors('height')}"><li class="text-danger" th:each="error : ${#fields.errors('height')}" th:text="#{${error}}" /></ul>
+            </p>
+            <p class="mb-3">
+                <label class="col-form-label" for="width">Boat Width</label>
+                <input class="form-control col-sm-5" id="width" placeholder="boat width"
+                       type="number"
+                       th:field="*{width}">
+            <ul th:if="${#fields.hasErrors('width')}"><li class="text-danger" th:each="error : ${#fields.errors('width')}" th:text="#{${error}}" /></ul>
+            </p>
+            <p class="mb-3">
+                <label class="col-form-label" for="insurance">Insurance number</label>
+                <input class="form-control col-sm-5" id="insurance" placeholder="insurance number"
+                       type="text"
+                       minlength="3"
+                       th:field="*{insurance}">
+            <ul th:if="${#fields.hasErrors('insurance')}"><li class="text-danger" th:each="error : ${#fields.errors('insurance')}" th:text="#{${error}}" /></ul>
+            </p>
+            <p>
+                <input class="btn btn-primary" type="submit" value="Add Boat">
+            </p>
+        </form>
+    </div>
+</main>
+</body>
+</html>

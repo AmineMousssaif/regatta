@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head::head(title='boat.update')}">
+</head>
+<body>
+<header th:replace="~{fragments/header :: header(current='update-boat')}"></header>
+<main>
+    <div class="container-lg">
+        <h2>Update Boat</h2>
+                <div th:if="${error}!=null" class="alert-danger">
+                    <span th:text="${error}"></span>
+                </div>
+        <div th:if="${error}==null">
+            <form action="#" th:action="@{/boat/update/id={id}(id=${boatDto.id})}" th:object="${boatDto}" method="post">
+                <p class="mb-3">
+                    <label class="col-form-label" for="name">Boat name</label>
+                    <input class="form-control col-sm-5" id="name" placeholder="Boat name"
+                           type="text"
+                           minlength="5"
+                           th:field="*{name}">
+                <ul th:if="${#fields.hasErrors('name')}"><li class="text-danger" th:each="error : ${#fields.errors('name')}" th:text="#{${error}}" /></ul>
+                </p>
+                <p class="mb-3">
+                    <label class="col-form-label" for="boatEmail">Boat email</label>
+                    <input class="form-control col-sm-5" id="boatEmail" placeholder="Boat email"
+                           type="text"
+                           minlength="5"
+                           th:field="*{email}">
+                <ul th:if="${#fields.hasErrors('email')}"><li class="text-danger" th:each="error : ${#fields.errors('email')}" th:text="#{${error}}" /></ul>
+                </p>
+                <p class="mb-3">
+                    <label class="col-form-label" for="boatLength">Boat Length</label>
+                    <input class="form-control col-sm-5" id="boatLength" placeholder="Boat length"
+                           type="number"
+                           th:field="*{length}">
+                <ul th:if="${#fields.hasErrors('length')}"><li class="text-danger" th:each="error : ${#fields.errors('length')}" th:text="#{${error}}" /></ul>
+                </p>
+                <p class="mb-3">
+                    <label class="col-form-label" for="height">Boat Height</label>
+                    <input class="form-control col-sm-5" id="height" placeholder="Boat height"
+                           type="number"
+                           th:field="*{height}">
+                <ul th:if="${#fields.hasErrors('height')}"><li class="text-danger" th:each="error : ${#fields.errors('height')}" th:text="#{${error}}" /></ul>
+                </p>
+                <p class="mb-3">
+                    <label class="col-form-label" for="width">Boat Width</label>
+                    <input class="form-control col-sm-5" id="width" placeholder="Boat width"
+                           type="number"
+                           th:field="*{width}">
+                <ul th:if="${#fields.hasErrors('width')}"><li class="text-danger" th:each="error : ${#fields.errors('width')}" th:text="#{${error}}" /></ul>
+                </p>
+                <p class="mb-3">
+                    <label class="col-form-label" for="insurance">Insurance number</label>
+                    <input class="form-control col-sm-5" id="insurance" placeholder="insurance number"
+                           type="text"
+                           minlength="3"
+                           th:field="*{insurance}">
+                <ul th:if="${#fields.hasErrors('insurance')}"><li class="text-danger" th:each="error : ${#fields.errors('insurance')}" th:text="#{${error}}" /></ul>
+                </p>
+                <p>
+                    <input type="submit" value="Update Boat" class="btn btn-primary">
+                </p>
+            </form>
+        </div>
+    </div>
+</main><!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>

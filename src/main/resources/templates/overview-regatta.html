@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head th:replace="~{fragments/head}">
+    <meta charset="UTF-8">
+    <title>Regattas</title>
+  </head>
+<body>
+<header th:replace="~{fragments/header :: header(current='overview-regatta')}"></header>
+<h1>Overview Regattas</h1>
+
+<div class="container-lg">
+  <h3>Search Regatta</h3>
+  <form action="/regatta/search" method="get">
+    <p class="mb-3">By Period: <br>
+      <label class="col-form-label" for="dateAfter">After date</label>
+      <input class="form-control col-sm-5" id="dateAfter" name="dateAfter" placeholder="After date"
+             th:value="${afterDate}" type="date">
+
+      <label class="col-form-label" for="dateBefore">Before date</label>
+      <input class="form-control col-sm-5" id="dateBefore" name="dateBefore" placeholder="Before date"
+             th:value="${beforeDate}" type="date">
+    </p>
+    <p class="mb-3">
+      <label class="col-form-label" for="category">By category:</label>
+      <input class="form-control col-sm-5" id="category" name="category"
+             placeholder="Search Category" th:value="${category}" type="text">
+    </p>
+    <p>
+      <input class="btn btn-primary" type="submit" value="Search">
+    </p>
+  </form>
+</div>
+
+<div class="pb-3">
+  <a class="btn btn-primary" href="/regatta/sort/club">Sort by clubname A-Z</a>
+  <a class="btn btn-primary" href="/regatta/sort/date">Sort by date </a>
+</div>
+
+<div th:if="${error}!=null" class="alert-danger">
+  <span th:text="${error}"></span>
+</div>
+
+<table class="table table-striped table-responsive-lg">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Organiser</th>
+    <th>Date</th>
+    <th>Max # teams</th>
+    <th>Category</th>
+    <th sec:authorize="hasRole('ADMIN')">Update</th>
+    <th sec:authorize="hasRole('ADMIN')">Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:if="${regattas.getContent().size() > 0}" th:each="regatta:${regattas.getContent()}">
+    <td th:text="${regatta.name}"></td>
+    <td th:text="${regatta.organiser}"></td>
+    <td th:text="${regatta.date}"></td>
+    <td th:text="${regatta.maxAantalToegelatenTeams}"></td>
+    <td th:text="${regatta.category}"></td>
+    <td sec:authorize="hasRole('ADMIN')"><a th:href="@{/regatta/update(id=${regatta.id})}" class="btn btn-primary">Update</a></td>
+    <td sec:authorize="hasRole('ADMIN')"><a th:href="@{/regatta/delete/{id}(id=${regatta.id})}" class="btn btn-danger">Delete</a></td>
+  </tr>
+  </tbody>
+</table>
+<div th:replace="~{fragments/pagination.html :: pagination(page = ${regattas}, current = ${current}, pageNumbers = ${pageNumbers})}"></div>
+</body>
+</html>

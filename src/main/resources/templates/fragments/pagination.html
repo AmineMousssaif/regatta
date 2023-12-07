@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!--SOURCE1: https://www.javacodegeeks.com/2013/03/implement-bootstrap-pagination-with-spring-data-and-thymeleaf.html -->
+<!--SOURCE2: https://www.baeldung.com/spring-thymeleaf-pagination -->
+    <nav aria-label="Search results pages" th:fragment="pagination (page, current, pageNumbers)">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${page.isFirst()} ?  'invisible' : ''"
+                aria-label="First">
+                <a th:if="${not page.isFirst()}" class="page-link"
+                   th:href="@{${current}(page = 1, size=${page.getSize()})}"> <b>&#8676;</b> First</a>
+            </li>
+            <li class="page-item" th:classappend="${page.hasPrevious()} ? '' : 'invisible'"
+                aria-label="Previous">
+                <a th:if="${page.hasPrevious()}" class="page-link"
+                   th:href="@{${current}(page = ${page.getNumber()}, size=${page.getSize()})}"
+                   title="Go to previous page"> <b>&#10235;</b> Previous
+                </a>
+            </li>
+            <li class="page-item" th:if="${page.getTotalPages() > 0}"
+                th:each="pageNumber : ${pageNumbers}"
+                th:classappend="${pageNumber==page.getNumber()+1}? 'active' : ''">
+                <a th:href="@{${current}(page=${pageNumber}, size=${page.getSize()})}"
+                   th:text="${pageNumber}"
+                   class="page-link"></a>
+            </li>
+            <li class="page-item" th:classappend="${page.hasNext()}? '' : 'invisible'"
+                aria-label="Next">
+                <a th:if="${page.hasNext()}"
+                   th:href="@{${current}(page=${page.getNumber() + 2}, size=${page.getSize()})}"
+                   title="Go to next page"
+                   class="page-link"> Next <b>&#10236;</b></a>
+            </li>
+            <li class="page-item" th:classappend="${page.isLast()}? 'invisible' : ''"
+                aria-label="Last">
+                <a th:if="${not page.isLast()}" class="page-link"
+                   th:href="@{${current}(page=${page.getTotalPages()}, size=${page.getSize()})}">Last <b>&#8677;</b>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</body>
+</html>

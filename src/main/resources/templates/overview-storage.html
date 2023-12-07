@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head}">
+  <meta charset="UTF-8">
+  <title>Storages</title>
+</head>
+<body>
+<header th:replace="~{fragments/header :: header(current='overview-storage')}"></header>
+<h1>Overview Storages</h1>
+
+<div class="container-lg">
+  <h3>Search Storage</h3>
+  <form action="/storage/search" method="get">
+    <p class="mb-3">
+      <label class="col-form-label" for="searchValue">Find By Name</label>
+      <input class="form-control col-sm-5" id="searchValue" name="searchValue" placeholder="Search Name"
+             th:value="${searchValue}" type="text">
+    </p>
+    <p>
+      <input class="btn btn-primary" type="submit" value="Search">
+    </p>
+  </form>
+</div>
+
+<div class="pb-3">
+  <a class="btn btn-primary" href="/storage/sort/name">Sort by name A-Z</a>
+  <a class="btn btn-primary" href="/storage/sort/height">Sort by height</a>
+</div>
+
+<div th:if="${error}!=null" class="alert-danger">
+  <span th:text="${error}"></span>
+</div>
+
+<table class="table table-striped table-responsive-lg">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Postal Code</th>
+    <th>Storage Space</th>
+    <th>Height</th>
+    <th>Year</th>
+    <th sec:authorize="hasRole('ADMIN')">Update</th>
+    <th sec:authorize="hasRole('ADMIN')">Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="storage:${storages.getContent()}">
+    <td th:text="${storage.name}"></td>
+    <td th:text="${storage.postalCode}"></td>
+    <td th:text="${storage.storageSpace}"></td>
+    <td th:text="${storage.height}"></td>
+    <td th:text="${storage.year}"></td>
+    <td sec:authorize="hasRole('ADMIN')"><a th:href="@{/storage/update/{id}(id=${storage.id})}" class="btn btn-primary">Update</a></td>
+    <td sec:authorize="hasRole('ADMIN')"><a th:href="@{/storage/delete(id=${storage.id})}" class="btn btn-danger">Delete</a></td>
+  </tr>
+  </tbody>
+</table>
+<div th:replace="~{fragments/pagination.html :: pagination(page = ${storages}, current = ${current}, pageNumbers = ${pageNumbers})}"></div>
+</body>
+</html>

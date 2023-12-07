@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head></head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+        <a class="navbar-brand" href="/" th:text="#{home}"></a>
+        <button aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation"
+                class="navbar-toggler"
+                data-target="#navbarColor01" data-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"
+                    th:classappend="${current == 'overview-storage' ? 'active' : ''}"
+                    sec:authorize="hasAnyRole('USER', 'ADMIN')">
+                    <a class="nav-link" href="/storage/overview" th:text="#{storage.overview}"></a>
+                </li>
+                <li class="nav-item"
+                    th:classappend="${current == 'add-storage' ? 'active' : ''}"
+                    sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" href="/storage/add" th:text="#{storage.add}"></a>
+                </li>
+                <li class="nav-item"
+                    th:classappend="${current == 'overview-regatta' ? 'active' : ''}"
+                    sec:authorize="hasAnyRole('USER', 'ADMIN')">
+                    <a class="nav-link" href="/regatta/overview" th:text="#{regatta.overview}"></a>
+                </li>
+                <li class="nav-item"
+                    th:classappend="${current == 'add-regatta' ? 'active' : ''}"
+                    sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" href="/regatta/add" th:text="#{regatta.add}"></a>
+                </li>
+                <li class="nav-item"
+                    th:classappend="${current == 'overview-team' ? 'active' : ''}"
+                    sec:authorize="hasAnyRole('USER', 'ADMIN')">
+                    <a class="nav-link" href="/team/overview" th:text="#{team.overview}"></a>
+                </li>
+                <li class="nav-item"
+                    th:classappend="${current == 'add-team' ? 'active' : ''}"
+                    sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" href="/team/add" th:text="#{team.add}"></a>
+                </li>
+                <li class="nav-item"
+                    th:classappend="${current == 'overview-boat' ? 'active' : ''}"
+                    sec:authorize="hasAnyRole('USER', 'ADMIN')">
+                    <a class="nav-link" href="/boat/overview" th:text="#{boat.overview}"></a>
+                </li>
+                <li class="nav-item"
+                    th:classappend="${current == 'add-boat' ? 'active' : ''}"
+                    sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" href="/boat/add" th:text="#{boat.add}"></a>
+                </li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()"
+                    th:classappend="${current == 'login' ? 'active' : ''}">
+                    <a class="nav-link" href="/login" th:text="#{login}"></a>
+                </li>
+
+                <li class="nav-item" sec:authorize="isAuthenticated()"
+                    th:classappend="${current == 'login' ? 'active' : ''}">
+                    <a class="nav-link" href="/logout" th:text="#{logout}"></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+</body>
+</html>

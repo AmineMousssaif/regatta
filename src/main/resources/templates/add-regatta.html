@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head}">
+    <meta charset="UTF-8">
+    <title>Adding regatta</title>
+</head>
+<body>
+<header th:replace="~{fragments/header :: header(current='add-regatta')}"></header>
+<main>
+    <div class="container-lg">
+        <h2>Add regatta</h2>
+
+        <div class="alert-danger" th:if="${error}!=null">
+            <span th:text="#{${error}}"></span>
+        </div>
+
+        <form action="/regatta/add" method="post" th:object="${regattaDto}">
+            <p class="mb-3">
+                <label class="col-form-label" for="name">Name</label>
+                <input class="form-control col-sm-5" id="name" placeholder="Name"
+                       type="text"
+                       minlength="5"
+                       th:field="*{name}">
+                <ul th:if="${#fields.hasErrors('name')}"><li class="text-danger" th:each="error : ${#fields.errors('name')}" th:text="#{${error}}" /></ul>
+            </p>
+            <p class="mb-3">
+                <label class="col-form-label" for="organiser">Organiser</label>
+                <input class="form-control col-sm-5" id="organiser" placeholder="Organiser"
+                       type="text"
+                       minlength="3"
+                       th:field="*{organiser}">
+                <ul th:if="${#fields.hasErrors('organiser')}"><li class="text-danger" th:each="error : ${#fields.errors('organiser')}" th:text="#{${error}}" /></ul>
+            </p>
+            <p class="mb-3">
+                <label class="col-form-label" for="date">Date</label>
+                <input class="form-control col-sm-5" id="date" placeholder="Date"
+                       type="date" th:field="*{date}">
+                <ul th:if="${#fields.hasErrors('date')}"><li class="text-danger" th:each="error : ${#fields.errors('date')}" th:text="#{${error}}" /></ul>
+            </p>
+            <p class="mb-3">
+                <label class="col-form-label" for="maxTeams">Maximum amount of teams allowed</label>
+                <input class="form-control col-sm-5" id="maxTeams" placeholder="Maximum Teams"
+                       type="number"
+                       th:field="*{maxAantalToegelatenTeams}">
+                <ul th:if="${#fields.hasErrors('maxAantalToegelatenTeams')}"><li class="text-danger" th:each="error : ${#fields.errors('maxAantalToegelatenTeams')}" th:text="#{${error}}" /></ul>
+            </p>
+            <p class="mb-3">
+                <label class="col-form-label" for="category">Category</label>
+                <input class="form-control col-sm-5" id="category" placeholder="Category"
+                       type="text"
+                       th:field="*{category}">
+            <ul th:if="${#fields.hasErrors('category')}"><li class="text-danger" th:each="error : ${#fields.errors('category')}" th:text="#{${error}}" /></ul>
+            </p>
+            <p>
+                <input class="btn btn-primary" type="submit" value="Add Regatta">
+            </p>
+            </form>
+    </div>
+</main>
+</body>
+
+</html>

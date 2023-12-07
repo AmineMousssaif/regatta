@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head::head(title='Overview boats')}">
+  <meta charset="UTF-8">
+  <title>Boats</title>
+</head>
+<body>
+<header th:replace="~{fragments/header :: header(current='overview-boat')}"></header>
+<h1>Overview Boats</h1>
+
+<div class="container-lg">
+  <h3>Search Boat</h3>
+  <form action="/api/boat/search" method="get">
+    <p class="mb-3">
+      <label class="col-form-label" for="insurance">By insurance number:</label>
+      <input class="form-control col-sm-5" id="insurance" name="insurance"
+             placeholder="Search by insurance number" type="text">
+    </p>
+    <p>
+      <input class="btn btn-primary" type="submit" value="Search">
+    </p>
+  </form>
+</div>
+
+<table class="table table-striped table-responsive-lg">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>E-mail</th>
+    <th>Height</th>
+    <th>Width</th>
+    <th>Length</th>
+    <th>Insurance number</th>
+    <th sec:authorize="hasRole('ADMIN')">Update</th>
+    <th sec:authorize="hasRole('ADMIN')">Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:if="${boats.getContent().size() > 0}" th:each="boat:${boats.getContent()}">
+    <td th:text="${boat.name}"></td>
+    <td th:text="${boat.email}"></td>
+    <td th:text="${boat.height}"></td>
+    <td th:text="${boat.width}"></td>
+    <td th:text="${boat.length}"></td>
+    <td th:text="${boat.insurance}"></td>
+    <td sec:authorize="hasRole('ADMIN')"><a th:href="@{/boat/update/id={id}(id=${boat.id})}" class="btn btn-primary">Update</a></td>
+    <td sec:authorize="hasRole('ADMIN')"><a th:href="@{/boat/delete/id={id}(id=${boat.id})}" class="btn btn-danger">Delete</a></td>
+  </tr>
+  </tbody>
+</table>
+<div th:replace="~{fragments/pagination.html :: pagination(page = ${boats}, current = ${current}, pageNumbers = ${pageNumbers})}"></div>
+</body>
+</html>

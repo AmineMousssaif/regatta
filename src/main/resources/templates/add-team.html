@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head}">
+    <meta charset="UTF-8">
+    <title>Adding team</title>
+</head>
+<body>
+<header th:replace="~{fragments/header :: header(current='add-team')}"></header>
+<main>
+  <div class="container-lg">
+    <h2>Add team</h2>
+
+    <div class="alert-danger" th:if="${error}!=null">
+      <span th:text="#{${error}}"></span>
+    </div>
+
+    <form action="/team/add" method="POST" th:object="${teamDto}">
+      <p class="mb-3">
+        <label class="col-form-label" for="name">Team name</label>
+        <input class="form-control col-sm-5" id="name" placeholder="Team name"
+               type="text"
+               minlength="5"
+               th:field="*{name}">
+      <ul th:if="${#fields.hasErrors('name')}"><li class="text-danger" th:each="error : ${#fields.errors('name')}" th:text="#{${error}}" /></ul>
+      </p>
+      <p class="mb-3">
+        <label class="col-form-label" for="category">Team category</label>
+        <input class="form-control col-sm-5" id="category" placeholder="Team category"
+               type="text"
+               minlength="3"
+               th:field="*{category}">
+      <ul th:if="${#fields.hasErrors('category')}"><li class="text-danger" th:each="error : ${#fields.errors('category')}" th:text="#{${error}}" /></ul>
+      </p>
+      <p class="mb-3">
+        <label class="col-form-label" for="club">Club</label>
+        <input class="form-control col-sm-5" id="club" placeholder="Club"
+               type="text"
+               minlength="3"
+               th:field="*{club}">
+      <ul th:if="${#fields.hasErrors('club')}"><li class="text-danger" th:each="error : ${#fields.errors('club')}" th:text="#{${error}}" /></ul>
+      </p>
+      <p class="mb-3">
+        <label class="col-form-label" for="passengers">Amount of passengers</label>
+        <input class="form-control col-sm-5" id="passengers" placeholder="Passengers"
+               type="number"
+               th:field="*{passengers}">
+      <ul th:if="${#fields.hasErrors('passengers')}"><li class="text-danger" th:each="error : ${#fields.errors('passengers')}" th:text="#{${error}}" /></ul>
+      </p>
+      <p>
+        <input class="btn btn-primary" type="submit" value="Add Team">
+      </p>
+    </form>
+  </div>
+</main>
+</body>
+</html>

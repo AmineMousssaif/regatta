@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head::head(title='error')}">
+</head>
+<body>
+<header th:replace="~{fragments/header :: header(current='error')}"></header>
+<main>
+
+  <div class="container-lg">
+    <h3>Helaas</h3>
+    <p>Er is een fout opgetreden, probeer het later opnieuw</p>
+  </div>
+</main>
+<div th:replace="~{fragments/scripts}"><!-- Scripts --></div>
+
+</body>
+</html>

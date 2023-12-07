@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head::head(title='storage.delete')}">
+</head>
+<body>
+<header th:replace="~{fragments/header :: header(current='delete-storage-confirm')}"></header>
+<main>
+  <div class="container-lg">
+    <h2>Delete Storage</h2>
+    <div th:if="${error}!=null" class="alert-danger">
+      <span th:text="${error}"></span>
+    </div>
+    <div th:if="${error}==null">
+    <p>Do you want to remove storage with name <strong th:text="${storageDto.name}"></strong> and ID <strong th:text="${storageDto.id}"></strong>?</p>
+
+    <div class="d-flex justify-content-between">
+      <form th:action="@{/storage/delete}" method="post">
+        <input type="hidden" name="id" th:value="${storageDto.id}">
+        <input type="submit" value="Yes, delete it" class="btn btn-danger">
+      </form>
+      <a href="/storage/overview" class="btn btn-secondary">No, go back</a>
+    </div>
+    </div>
+
+  </div>
+</main><!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>
