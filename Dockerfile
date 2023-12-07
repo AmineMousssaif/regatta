@@ -7,6 +7,10 @@ WORKDIR /app
 # Copy the entire project to the container
 COPY . .
 
+# Set the Java version for Maven
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+RUN export PATH=$JAVA_HOME/bin:$PATH
+
 # Build the application
 RUN mvn package -DskipTests
 
