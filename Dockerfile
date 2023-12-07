@@ -1,7 +1,7 @@
 # Use an official Maven image as a build environment
 FROM ubuntu:latest AS build
 RUN apt-get-update
-RUN apt-get install openjdk-20-jdk -y
+RUN apt-get install openjdk-11-jdk -y
 
 # Set the working directory to /app
 WORKDIR /app
